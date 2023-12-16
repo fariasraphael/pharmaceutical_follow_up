@@ -1,0 +1,13 @@
+Treatment
+rails g model treatment notification_number
+
+Tuberculosis_Treatment
+rails g model tuberculosisTreatment start_date:date phase_change_date:date closing_date:date
+
+Medicine
+rails g model medicine name dose
+
+medicines_treatment
+rails g model medicines_treatments medicine:references treatment:references
+
+

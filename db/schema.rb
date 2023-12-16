@@ -10,9 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_14_024617) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_16_022655) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "paitients_treatments", force: :cascade do |t|
+    t.bigint "treatment_id", null: false
+    t.bigint "patient_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["patient_id"], name: "index_paitients_treatments_on_patient_id"
+    t.index ["treatment_id"], name: "index_paitients_treatments_on_treatment_id"
+  end
+
+  create_table "patients", force: :cascade do |t|
+    t.string "cns"
+    t.string "name"
+    t.date "date_of_birth"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "treatments", force: :cascade do |t|
+    t.string "notification_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tuberculosis_treatments", force: :cascade do |t|
+    t.date "start_date"
+    t.date "phase_change_date"
+    t.date "closing_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -26,4 +57,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_14_024617) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "paitients_treatments", "patients"
+  add_foreign_key "paitients_treatments", "treatments"
 end
